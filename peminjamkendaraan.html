@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Form Peminjaman Kendaraan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            background: #003366;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #003366;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #003366;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #002244;
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .form-container {
+                max-width: 100%;
+            }
+            input, select, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-header">Form Peminjaman Kendaraan</div>
+
+    <form id="formPeminjaman">
+        <label>Nama Peminjam:</label>
+        <input type="text" id="nama" placeholder="Masukkan nama" required>
+
+        <label>Tipe Kendaraan Dengan Plat Nomor:</label>
+        <select id="tipe" required>
+            <option value="">-- Pilih --</option>
+            <option>L300 S 8339 UH</option>
+            <option>L300 (S 8049 UF)</option>
+            <option>L300 (S 8053 UF)</option>
+            <option>L300 (S 9989 UF)</option>
+            <option>L300 (S 9796 UE)</option>
+            <option>L300 (S 9374 HF)</option>
+            <option>L300 REMBANG (S 8914 UH)</option>
+            <option>T 120 SS (S 8285 HM)</option>
+            <option>ISUZU TBR54 (S 9392 HH)</option>
+            <option>ISUZU TBR55 (S 9668 HD)</option>
+            <option>ISUZU TBR56 (S 8780 UE)</option>
+            <option>ISUZU TRAGA (S 9950 UF)</option>
+            <option>MITSUBISHI TRUCK (SS 9004 UF)</option>
+            <option>MITSUBISHI TRUCK (S 9592 UF)</option>
+            <option>MITSUBISHI TRUCK (S 8149 UH)</option>
+            <option>MITSUBISHI TRUCK (S 9212 HG)</option>
+            <option>MITSUBISHI TRUCK (S 8387 UF)</option>
+            <option>MITSUBISHI TRUCK (S 8457 UF)</option>
+            <option>CIVIC (S 805 TI)</option>
+            <option>HONDA MOBILIO (S 1659 UE)</option>
+            <option>INNOVA (S 1430 FD)</option>
+            <option>PAJERO (S 1140 GH)</option>
+            <option>VESPA (S 2339 EM)</option>
+            <option>VESPA LX (S 6979 EAK)</option>
+            <option>YAMAHA STYLO()</option>
+            <option>YAMAHA N-MAX (S 2598 IJ)</option>
+            <option>YAMAHA MIO (S 6468 H)</option>
+            <option>ISUZU TRUCK (D 8382 SN)</option>
+            <option>ISUZU MOBIL (BOX DK 8230)</option>
+            <option>SEPEDA MOTOR HONDA(BERMASALAH) (S 2531 EC)</option>
+        </select>
+
+        <label>Nomor WhatsApp:</label>
+        <input type="tel" id="wa" placeholder="628xxxxxxxxxx" required>
+
+        <button type="submit">Kirim Peminjaman</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("formPeminjaman").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let nama = document.getElementById("nama").value.trim();
+    let tipe = document.getElementById("tipe").value;
+    let waPeminjam = document.getElementById("wa").value.trim();
+    let waAdmin = "6285895445532"; // Ganti dengan nomor admin
+
+    // Hapus karakter non-angka
+    waPeminjam = waPeminjam.replace(/\D/g, '');
+
+    // Validasi nomor WA peminjam
+    if (!/^62\d{9,15}$/.test(waPeminjam)) {
+        alert("Nomor WhatsApp tidak valid. Gunakan format 628xxxxxxxxxx");
+        return;
+    }
+
+    // Buat pesan untuk admin
+    let pesan = `Halo, saya ${nama} ingin meminjam kendaraan.\nTipe Kendaraan: ${tipe}\nNomor WA saya: ${waPeminjam}`;
+    let url = `https://wa.me/${waAdmin}?text=${encodeURIComponent(pesan)}`;
+
+    // Buka WhatsApp
+    window.open(url, "_blank");
+
+    // Reset form
+    document.getElementById("formPeminjaman").reset();
+});
+</script>
+
+</body>
+</html>
